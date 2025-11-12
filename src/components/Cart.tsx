@@ -24,8 +24,8 @@ const Cart: React.FC<CartProps> = ({
   if (cartItems.length === 0) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="text-center py-16">
-          <div className="text-6xl mb-4">☕</div>
+      <div className="text-center py-16">
+        <div className="text-6xl mb-4">🍜</div>
           <h2 className="text-2xl font-playfair font-medium text-black mb-2">Your cart is empty</h2>
           <p className="text-gray-600 mb-6">Add some delicious items to get started!</p>
           <button
@@ -49,8 +49,7 @@ const Cart: React.FC<CartProps> = ({
           <ArrowLeft className="h-5 w-5" />
           <span>Continue Shopping</span>
         </button>
-        <h1 className="text-3xl font-playfair font-semibold text-black">Your Cart</h1>
-        <h1 className="text-3xl font-noto font-semibold text-black">Your Cart</h1>
+        <h1 className="text-3xl font-hachiran text-ramen-dark">Your Cart</h1>
         <button
           onClick={clearCart}
           className="text-red-500 hover:text-red-600 transition-colors duration-200"

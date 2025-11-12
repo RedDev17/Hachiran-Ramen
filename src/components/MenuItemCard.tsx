@@ -110,7 +110,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
             />
           ) : null}
           <div className={`absolute inset-0 flex items-center justify-center ${item.image ? 'hidden' : ''}`}>
-            <div className="text-6xl opacity-20 text-gray-400">☕</div>
+            <div className="text-6xl opacity-20 text-gray-400">🍜</div>
           </div>
           
           {/* Badges */}

@@ -21,7 +21,7 @@ export const useCart = () => {
   const addToCart = useCallback((item: MenuItem, quantity: number = 1, variation?: Variation, addOns?: AddOn[]) => {
     const totalPrice = calculateItemPrice(item, variation, addOns);
     
-    // Group add-ons by name and sum their quantities
+    // Group add-ons by id and count
     const groupedAddOns = addOns?.reduce((groups, addOn) => {
       const existing = groups.find(g => g.id === addOn.id);
       if (existing) {
@@ -31,25 +31,24 @@ export const useCart = () => {
       }
       return groups;
     }, [] as (AddOn & { quantity: number })[]);
+
+    // Stable composite key (prevents duplicates for same config)
+    const addOnKey = (groupedAddOns || []).map(a => `${a.id}-${a.quantity}`).sort().join('|') || 'none';
+    const compositeId = `${item.id}-${variation?.id || 'default'}-${addOnKey}`;
     
     setCartItems(prev => {
-      const existingItem = prev.find(cartItem => 
-        cartItem.id === item.id && 
-        cartItem.selectedVariation?.id === variation?.id &&
-        JSON.stringify(cartItem.selectedAddOns?.map(a => `${a.id}-${a.quantity || 1}`).sort()) === JSON.stringify(groupedAddOns?.map(a => `${a.id}-${a.quantity}`).sort())
-      );
+      const existingItem = prev.find(cartItem => cartItem.id === compositeId);
       
       if (existingItem) {
         return prev.map(cartItem =>
-          cartItem === existingItem
+          cartItem.id === compositeId
             ? { ...cartItem, quantity: cartItem.quantity + quantity }
             : cartItem
         );
       } else {
-        const uniqueId = `${item.id}-${variation?.id || 'default'}-${addOns?.map(a => a.id).join(',') || 'none'}`;
         return [...prev, { 
           ...item,
-          id: uniqueId,
+          id: compositeId,
           quantity,
           selectedVariation: variation,
           selectedAddOns: groupedAddOns || [],

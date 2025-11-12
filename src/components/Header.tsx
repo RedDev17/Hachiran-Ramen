@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
             ) : (
               <img 
                 src={siteSettings?.site_logo || "/logo.jpg"} 
-                alt={siteSettings?.site_name || "Ramen Yard"}
+                alt={siteSettings?.site_name || "Hachiran Ramen"}
                 className="w-10 h-10 rounded object-cover ring-2 ring-ramen-gold"
                 onError={(e) => {
                   e.currentTarget.src = "/logo.jpg";
@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onCartClick, onMenuClic
               {loading ? (
                 <div className="w-24 h-6 bg-gray-200 rounded animate-pulse" />
               ) : (
-                "Ramen Yard"
+                "Hachiran Ramen"
               )}
             </h1>
           </button>
